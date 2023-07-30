@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timespan Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+
+</head>
+
+<body>
+
+    <div class="siteWrapper">
+
+        <div class="header">
+
+            <h1>Tage bis zum ausgewählten Datum</h1>
+
+            <div class="add">
+                <input type="text" id="eventTitle" placeholder="Titel">
+                <input type="date" id="eventDate">
+                <button onclick="addEvent()" class="addButton">Hinzufügen</button>
+            </div>
+
+        </div>
+
+        <ul id="eventList">
+            <!-- Hier werden die Termine dynamisch eingefügt -->
+        </ul>
+
+        <div></div>
+
+    </div>
+
+    <div id="popup">
+        <div id="titlebar">
+            <button id="close-button">X</button>
+        </div>
+        <div class="popupWithoutTitlebar">
+            <div class="popupContent">
+                <div class="popupInputs">
+                    <label for="popupTitle">Titel</label>
+                    <input type="text" name="popupTitle" id="popupTitle" placeholder="Titel">
+                </div>
+
+                <div class="popupInputs">
+                    <label for="popupDate">Datum</label>
+                    <input type="date" name="popupDate" id="popupDate">
+                </div>
+            </div>
+            <div class="popupActions">
+                <button id="popupCancel">Abbrechen</button>
+                <button id="popupApply">Anwenden</button>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+    <template id="templateListItem">
+        <div class="listItem">
+            <div class="listData">
+                <div data-list-item-title></div>
+                •
+                <div data-list-item-date></div>
+                •
+                <div data-list-item-time-past></div>
+
+            </div>
+            <div data-list-actions>
+
+            </div>
+
+        </div>
+    </template>
+
+</body>
+
+</html>
