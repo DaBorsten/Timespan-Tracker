@@ -134,7 +134,7 @@ button.delete-button {
     display: none;
     flex-direction: column;
     top: 40%;
-    left: 40%;
+    left: 42%;
 
     background-color: #1f212a;
     border-radius: var(--borderRadiusBig);

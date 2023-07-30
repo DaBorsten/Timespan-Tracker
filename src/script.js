@@ -213,6 +213,7 @@ function openPopup(popupSavedTitle, popupSavedDate) {
     popupTitle.value = popupSavedTitle
     popupDate.valueAsDate = popupSavedDate
 
+    centerPopup()
 }
 
 close_button.addEventListener('click', () => {
@@ -222,6 +223,11 @@ close_button.addEventListener('click', () => {
 popupCancel.addEventListener('click', () => {
     closePopup()
 })
+
+function centerPopup() {
+    popup.style.top = "40%"
+    popup.style.left = "42%"
+}
 
 
 // Beim Laden der Seite die gespeicherten Termine anzeigen
