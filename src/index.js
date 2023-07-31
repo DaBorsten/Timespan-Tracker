@@ -19,16 +19,18 @@ const createWindow = () => {
       nodeIntegrationInWorker: true,
       devTools: true,
       enableRemoteModule: true,
+      contextIsolation: false,
     },
     darkTheme: true,
     center: true,
     backgroundColor: '#1f212a',
+    frame: true,
   });
 
   // and load the index.html of the app.
+  mainWindow.setMenuBarVisibility(false);
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
   mainWindow.maximize();
-  mainWindow.setMenuBarVisibility(false);
 
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
