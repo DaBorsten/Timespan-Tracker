@@ -6,43 +6,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timespan Tracker</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <script type="module" src="script.js" defer></script>
+    <script src="sortable.js"></script>
 
 </head>
 
 <body>
 
-    <div class="siteWrapper">
+    <div class="wholeWindow">
 
-        <div class="header">
-
-            <h1>Tage bis zum ausgewählten Datum</h1>
-
-            <div class="add">
-                <input type="text" id="eventTitle" placeholder="Titel">
-                <input type="date" id="eventDate">
-                <button onclick="addEvent()" class="addButton">Hinzufügen</button>
-            </div>
-
+        <div class="windowTitlebar">
+            <div></div>
         </div>
 
-        <ul id="eventList">
-            <!-- Hier werden die Termine dynamisch eingefügt -->
-        </ul>
+        <div class="siteWithSidebar">
 
-        <div></div>
+            <div class="sidebar">
+                <div class="sidebarCategories">
+                    <button class="sidebarButton activePage" title="Kalender"
+                        data-app-page-target="#timespanTrackerPageWrapper"><img src="icons/calendar.svg"
+                            alt="calendar"></button>
+
+                    <button class="sidebarButton" title="Beta Features"
+                        data-app-page-target="#betaFeaturesPageWrapper"><img src="icons/testing.svg"
+                            alt="betaFeatures"></button>
+                </div>
+
+                <button id="settings" class="sidebarButton" title="Einstellungen"><img src="icons/settings.svg"
+                        alt="settings"></button>
+            </div>
+
+            <div class="pagesWrapper">
+                <div id="timespanTrackerPageWrapper" data-app-page-content class="individualWrapper activePage">
+
+                    <div class="header">
+
+                        <h1>Tage bis zum ausgewählten Datum</h1>
+
+                        <div class="add">
+                            <input type="text" id="eventTitle" placeholder="Titel" autofocus spellcheck="false">
+                            <input type="date" id="eventDate">
+                            <button class="addButton textOnlyButton" id="add">Hinzufügen</button>
+                        </div>
+
+                    </div>
+
+                    <div id="eventList">
+                        <!-- Hier werden die Termine dynamisch eingefügt -->
+                    </div>
+
+                    <div></div>
+
+                </div>
+
+                <div id="betaFeaturesPageWrapper" data-app-page-content class="individualWrapper">
+                    <div class="header">
+
+                        <h1>Beta Features</h1>
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
     </div>
 
-    <div id="popup">
-        <div id="popupTitlebar">
-            <button id="close-button">X</button>
+    </div>
+
+    <div id="popup" class="popup">
+        <div id="popupTitlebar" class="popupTitlebar">
+            <button id="close-button" class="closeButton"></button>
         </div>
         <div class="popupWithoutTitlebar">
             <div class="popupContent">
                 <div class="popupInputs">
                     <label for="popupTitle">Titel</label>
-                    <input type="text" name="popupTitle" id="popupTitle" placeholder="Titel">
+                    <input type="text" name="popupTitle" id="popupTitle" placeholder="Titel" spellcheck="false">
                 </div>
 
                 <div class="popupInputs">
@@ -51,11 +90,84 @@
                 </div>
             </div>
             <div class="popupActions">
-                <button id="popupCancel">Abbrechen</button>
-                <button id="popupApply">Anwenden</button>
+                <button id="popupCancel" class="textOnlyButton">Abbrechen</button>
+                <button id="popupApply" class="textOnlyButton">Anwenden</button>
             </div>
         </div>
 
+    </div>
+
+
+    <div id="alertPopup" class="popup">
+        <div id="alertPopupTitlebar" class="popupTitlebar">
+            <button id="closeAlertPopupButton" class="closeButton"></button>
+        </div>
+        <div class="popupWithoutTitlebar">
+            <div class="popupContent">
+                <span id="alertPopupText"></span>
+            </div>
+            <div class="popupActions">
+                <button id="alertPopupApply" class="textOnlyButton">OK</button>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div id="confirmPopup" class="popup">
+        <div id="confirmPopupTitlebar" class="popupTitlebar">
+            <button id="closeConfirmPopupButton" class="closeButton"></button>
+        </div>
+        <div class="popupWithoutTitlebar">
+            <div class="popupContent">
+                <span id="connfirmPopupText"></span>
+            </div>
+            <div class="popupActions">
+                <button id="confirmPopupDenie" class="textOnlyButton">Nein</button>
+                <button id="confirmPopupConfirm" class="textOnlyButton">Ja</button>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="settings" data-settings-open="false">
+        <div class="settingsSidebar">
+            <button class="settingsTab" data-settings-tab-target="#generalSettingsContent">
+                <img src="icons/general.svg" alt="general">
+                <div class="settingsSidebarTitle">Allgemein</div>
+            </button>
+            <button class="settingsTab" data-settings-tab-target="#personalizeSettingsContent">
+                <img src="icons/personalize.svg" alt="personalize">
+                <div class="settingsSidebarTitle">Personalisieren</div>
+            </button>
+            <button class="settingsTab" data-settings-tab-target="#aboutSettingsContent">
+                <img src="icons/about.svg" alt="about">
+                <div class="settingsSidebarTitle">Über</div>
+            </button>
+        </div>
+        <div class="settingsContent">
+            <div id="generalSettingsContent" data-settings-tab-content>
+                <div class="settingsContentWrapper">
+                    <div class="settingsContentTitle">Allgemein</div>
+                </div>
+            </div>
+            <div id="personalizeSettingsContent" data-settings-tab-content>
+                <div class="settingsContentWrapper">
+                    <div class="settingsContentTitle">Personalisieren</div>
+                </div>
+            </div>
+            <div id="aboutSettingsContent" data-settings-tab-content>
+                <div class="settingsContentWrapper">
+                    <div class="settingsContentTitle">Über</div>
+
+                    <div class="settingsContentRow">
+                        <div>App-Version:</div>
+                        <div id="appVersion"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -64,13 +176,18 @@
 
     <template id="templateListItem">
         <div class="listItem">
-            <div class="listData">
-                <div data-list-item-title></div>
-                •
-                <div data-list-item-date></div>
-                •
-                <div data-list-item-time-past></div>
+            <div class="listDataWithDrag">
+                <div class="dragElement">
+                    <img src="icons/drag.svg">
+                </div>
+                <div class="listData">
+                    <div data-list-item-title></div>
+                    <div class="dotSeparator">•</div>
+                    <div data-list-item-date></div>
+                    <div class="dotSeparator">•</div>
+                    <div data-list-item-time-past></div>
 
+                </div>
             </div>
             <div data-list-actions>
 

@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -12,6 +12,8 @@ const createWindow = () => {
     show: false,
     width: 1280,
     height: 720,
+    minHeight: 450,
+    minWidth: 900,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
@@ -25,6 +27,15 @@ const createWindow = () => {
     center: true,
     backgroundColor: '#1f212a',
     frame: true,
+
+    roundedCorners: true,
+
+    titleBarStyle: 'hidden',
+    titleBarOverlay: {
+      color: '#202020',
+      symbolColor: '#fff',
+      height: 40
+    }
   });
 
   // and load the index.html of the app.
@@ -65,3 +76,8 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
+
+ipcMain.on('app_version', (event) => {
+  event.sender.send('app_version', { version: app.getVersion() });
+});
