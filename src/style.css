@@ -34,7 +34,7 @@
 }
 
 body {
-    
+
     background-color: var(--popupTitlebarColor);
     color: var(--fontColor);
 }
@@ -117,7 +117,7 @@ body {
     gap: 10px;
     padding: 20px;
     height: 100%;
-    width: 40%;
+    width: fit-content;
     background-color: var(--secondaryBackgroundColor);
 }
 
@@ -136,7 +136,7 @@ body {
     padding: 20px;
 
     height: 100%;
-    width: 60%;
+    width: 100%;
     background-color: var(--inputColor);
 }
 
@@ -426,6 +426,8 @@ button.delete-button {
 }
 
 .dotSeparator {
+    color: var(--borderColor);
+
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;

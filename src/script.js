@@ -1,5 +1,8 @@
 let currentlyEditingIndex
 
+
+const eventList = document.getElementById("eventList");
+
 const addTitle = document.getElementById('eventTitle')
 const addDate = document.getElementById('eventDate')
 const addButton = document.getElementById('add')
@@ -73,7 +76,7 @@ function addEvent() {
     }
 
     const events = getEventsFromLocalStorage();
-    events.push({ title: eventTitle, date: eventDate.getTime() });
+    events.push({ eventIndex: eventList.childElementCount, title: eventTitle, date: eventDate.getTime() });
     localStorage.setItem("events", JSON.stringify(events));
 
     document.getElementById("eventTitle").value = "";
@@ -97,17 +100,138 @@ function deleteEvent(index) {
 }
 
 // Funktion zur Bearbeitung eines Events
-function editEvent(index) {
+function editEvent(eventIndex) {
     const events = getEventsFromLocalStorage();
-    const event = events[index];
+    event = events[eventIndex];
 
     // Setze die globale Variable currentlyEditingIndex auf den aktuellen Index
-    currentlyEditingIndex = index;
+    currentlyEditingIndex = eventIndex;
+
+    console.log(eventIndex)
 
     const updatedTitle = event.title;
 
     openPopup(event.title, new Date(event.date));
 }
+
+
+
+
+/* function updateEveryIndex(evt) {
+    const events = getEventsFromLocalStorage();
+    //let draggedItem = evt.item
+
+    let oldIndex = evt.oldIndex
+    let newIndex = evt.newIndex
+
+
+    if (oldIndex === newIndex) return
+
+
+    events.forEach((event) => {
+
+        let localStorageIndex = event.eventIndex
+
+        // Index ändert sich nicht
+        if (localStorageIndex < oldIndex && localStorageIndex < newIndex) return
+
+        // Index ändert sich nicht
+        if (localStorageIndex > oldIndex && localStorageIndex > newIndex) return
+
+        // Zahl befindet sich dazwischen oder ist der neue Index | Index wurde von groß nach klein verschoben
+        if (localStorageIndex < oldIndex && localStorageIndex >= newIndex) {
+            localStorageIndex += 1
+            return
+        }
+
+        // Zahl befindet sich dazwischen oder ist der neue Index | Index wurde von klein nach groß verschoben
+        if (localStorageIndex > oldIndex && localStorageIndex <= newIndex) {
+            localStorageIndex -= 1
+            return
+        }
+
+        // Index wird vom alten zum neuen
+        if (localStorageIndex === oldIndex) {
+            localStorageIndex = newIndex
+            console.log('Erfolgreich verschoben')
+            return
+        }
+
+
+
+        console.log(`Index im Local Storage: ${localStorageIndex}`)
+
+    })
+
+    localStorage.setItem("test", JSON.stringify(events));
+
+
+
+
+
+
+
+
+    console.log(`Alter Index: ${oldIndex}`)
+
+    console.log(`Neuer Index: ${newIndex}`)
+
+
+} */
+
+
+
+
+
+
+
+function updateEveryIndex(evt) {
+    const events = getEventsFromLocalStorage();
+
+    let oldIndex = evt.oldIndex;
+    let newIndex = evt.newIndex;
+
+    if (oldIndex === newIndex) return;
+
+    events.forEach((event) => {
+
+        if (event.eventIndex < oldIndex && event.eventIndex < newIndex) return;
+        if (event.eventIndex > oldIndex && event.eventIndex > newIndex) return;
+
+        if (event.eventIndex < oldIndex && event.eventIndex >= newIndex) {
+            event.eventIndex += 1;  // Ändere das Ereignis im Array
+            return;
+        }
+
+        if (event.eventIndex > oldIndex && event.eventIndex <= newIndex) {
+            event.eventIndex -= 1;  // Ändere das Ereignis im Array
+            return;
+        }
+
+        if (event.eventIndex === oldIndex) {
+            event.eventIndex = newIndex;  // Ändere das Ereignis im Array
+            console.log('Erfolgreich verschoben');
+            return;
+        }
+
+        console.log(`Index im Local Storage: ${event.eventIndex}`);
+    });
+
+
+    // Filtere und sortiere events nach eventIndex
+    const sortedEvents = events.sort((a, b) => a.eventIndex - b.eventIndex);
+
+
+    localStorage.setItem("events", JSON.stringify(events));
+}
+
+
+
+
+
+
+
+
 
 
 popupApply.addEventListener('click', () => {
@@ -171,12 +295,11 @@ function formatDate(date) {
 // Funktion zum Anzeigen der Termine
 function displayEvents() {
     const events = getEventsFromLocalStorage();
-    const eventList = document.getElementById("eventList");
     const templateListItem = document.getElementById('templateListItem')
 
     eventList.innerHTML = "";
 
-    events.forEach((event, index) => {
+    events.forEach((event) => {
         const listItem = templateListItem.content.cloneNode(true)
         const listItemTitle = listItem.querySelector('[data-list-item-title]')
         const listItemDate = listItem.querySelector('[data-list-item-date]')
@@ -192,12 +315,14 @@ function displayEvents() {
         const editButton = document.createElement("button");
         editButton.textContent = "Bearbeiten";
         editButton.classList.add("edit-button", "textOnlyButton")
-        editButton.addEventListener("click", () => editEvent(index));
+        //editButton.addEventListener("click", () => editEvent(index));
+        editButton.addEventListener("click", () => editEvent(event.eventIndex));
 
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "Löschen";
         deleteButton.classList.add("delete-button", "textOnlyButton")
-        deleteButton.addEventListener("click", () => deleteEvent(index));
+        //deleteButton.addEventListener("click", () => deleteEvent(index));
+        deleteButton.addEventListener("click", () => deleteEvent(event.eventIndex));
 
         listActions.appendChild(editButton);
         listActions.appendChild(deleteButton);
@@ -361,7 +486,7 @@ function centerConfirmPopup() {
 
 
 function openConfirmPopup(confirmText) {
-    if(!confirmText) return
+    if (!confirmText) return
     return new Promise((resolve, reject) => {
         if (confirmPopup.style.display !== "flex") {
             confirmPopup.style.display = "flex";
@@ -714,5 +839,6 @@ let sortableList = document.getElementById('eventList');
 const sortable = new Sortable(sortableList, {
     handle: '.dragElement',
     animation: 200,
-    //TOTO: Funktion zum speichern der neuen Ordnung onEnd: saveSortableOrder
+    //TOTO: Funktion zum speichern der neuen Ordnung
+    onEnd: updateEveryIndex
 })
