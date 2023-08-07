@@ -117,73 +117,6 @@ function editEvent(eventIndex) {
 
 
 
-/* function updateEveryIndex(evt) {
-    const events = getEventsFromLocalStorage();
-    //let draggedItem = evt.item
-
-    let oldIndex = evt.oldIndex
-    let newIndex = evt.newIndex
-
-
-    if (oldIndex === newIndex) return
-
-
-    events.forEach((event) => {
-
-        let localStorageIndex = event.eventIndex
-
-        // Index ändert sich nicht
-        if (localStorageIndex < oldIndex && localStorageIndex < newIndex) return
-
-        // Index ändert sich nicht
-        if (localStorageIndex > oldIndex && localStorageIndex > newIndex) return
-
-        // Zahl befindet sich dazwischen oder ist der neue Index | Index wurde von groß nach klein verschoben
-        if (localStorageIndex < oldIndex && localStorageIndex >= newIndex) {
-            localStorageIndex += 1
-            return
-        }
-
-        // Zahl befindet sich dazwischen oder ist der neue Index | Index wurde von klein nach groß verschoben
-        if (localStorageIndex > oldIndex && localStorageIndex <= newIndex) {
-            localStorageIndex -= 1
-            return
-        }
-
-        // Index wird vom alten zum neuen
-        if (localStorageIndex === oldIndex) {
-            localStorageIndex = newIndex
-            console.log('Erfolgreich verschoben')
-            return
-        }
-
-
-
-        console.log(`Index im Local Storage: ${localStorageIndex}`)
-
-    })
-
-    localStorage.setItem("test", JSON.stringify(events));
-
-
-
-
-
-
-
-
-    console.log(`Alter Index: ${oldIndex}`)
-
-    console.log(`Neuer Index: ${newIndex}`)
-
-
-} */
-
-
-
-
-
-
 
 function updateEveryIndex(evt) {
     const events = getEventsFromLocalStorage();
@@ -223,6 +156,8 @@ function updateEveryIndex(evt) {
 
 
     localStorage.setItem("events", JSON.stringify(events));
+    
+    displayEvents()
 }
 
 
