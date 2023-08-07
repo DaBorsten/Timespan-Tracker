@@ -25,7 +25,8 @@ const createWindow = () => {
     },
     darkTheme: true,
     center: true,
-    backgroundColor: '#1f212a',
+    /* backgroundColor: '#1f212a', */
+    backgroundColor: 'rgba(0, 0, 0, 0)',
     frame: true,
 
     roundedCorners: true,

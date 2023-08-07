@@ -92,6 +92,7 @@ function deleteEvent(index) {
             const events = getEventsFromLocalStorage();
             events.splice(index, 1);
             localStorage.setItem("events", JSON.stringify(events));
+            updateIndicesAfterDeletion(index)
             displayEvents();
         })
         .catch((error) => {
@@ -115,6 +116,25 @@ function editEvent(eventIndex) {
 }
 
 
+function updateIndicesAfterDeletion(indexDeleted) {
+    const events = getEventsFromLocalStorage();
+
+    events.forEach((event) => {
+
+        if (event.eventIndex < indexDeleted) return;
+
+        if (event.eventIndex > indexDeleted) {
+            event.eventIndex -= 1;  // Ändere das Ereignis im Array
+            return;
+        }
+    });
+
+
+    // Filtere und sortiere events nach eventIndex
+    const sortedEvents = events.sort((a, b) => a.eventIndex - b.eventIndex);
+
+    localStorage.setItem("events", JSON.stringify(events));
+}
 
 
 
@@ -143,11 +163,11 @@ function updateEveryIndex(evt) {
 
         if (event.eventIndex === oldIndex) {
             event.eventIndex = newIndex;  // Ändere das Ereignis im Array
-            console.log('Erfolgreich verschoben');
+            // console.log('Erfolgreich verschoben');
             return;
         }
 
-        console.log(`Index im Local Storage: ${event.eventIndex}`);
+        // console.log(`Index im Local Storage: ${event.eventIndex}`);
     });
 
 
@@ -156,7 +176,7 @@ function updateEveryIndex(evt) {
 
 
     localStorage.setItem("events", JSON.stringify(events));
-    
+
     displayEvents()
 }
 

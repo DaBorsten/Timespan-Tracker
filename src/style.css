@@ -282,7 +282,7 @@ button.addButton:hover {
 }
 
 .listItem:hover {
-    border: 2px solid var(--borderColor);
+    border: 2px solid var(--inputColor);
 }
 
 button.delete-button {
