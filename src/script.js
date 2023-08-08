@@ -270,13 +270,11 @@ function displayEvents() {
         const editButton = document.createElement("button");
         editButton.textContent = "Bearbeiten";
         editButton.classList.add("edit-button", "textOnlyButton")
-        //editButton.addEventListener("click", () => editEvent(index));
         editButton.addEventListener("click", () => editEvent(event.eventIndex));
 
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "Löschen";
         deleteButton.classList.add("delete-button", "textOnlyButton")
-        //deleteButton.addEventListener("click", () => deleteEvent(index));
         deleteButton.addEventListener("click", () => deleteEvent(event.eventIndex));
 
         listActions.appendChild(editButton);
@@ -318,20 +316,62 @@ function calculateDays(selectedDate) {
     const timeDifference = selectedDate.getTime() - today.getTime();
     const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
 
-    if (daysDifference > 2) {
-        return `In ${daysDifference} Tagen`;
-    } else if (daysDifference === 2) {
-        return "Übermorgen";
-    } else if (daysDifference === 1) {
-        return "Morgen";
-    } else if (daysDifference === 0) {
-        return "Heute";
-    } else if (daysDifference === -1) {
-        return "Gestern";
-    } else if (daysDifference === -2) {
-        return "Vorgestern";
+    let weeksDifference
+    if (daysDifference < 0) {
+        weeksDifference = Math.ceil(daysDifference / 7)
     } else {
-        return `Vor ${-daysDifference} Tagen`;
+        weeksDifference = Math.floor(daysDifference / 7)
+    }
+    let newDaysDifference = daysDifference % 7
+    console.log(weeksDifference)
+    console.log(newDaysDifference)
+
+    if (daysDifference >= 14 && newDaysDifference > 1) {
+        return `In ${weeksDifference} Wochen und ${newDaysDifference} Tagen`
+    } else if (daysDifference >= 14 && newDaysDifference == 1) {
+        return `In ${weeksDifference} Wochen und ${newDaysDifference} Tag`
+    } else if (daysDifference >= 14 && newDaysDifference == 0) {
+        return `In ${weeksDifference} Wochen`
+    }
+    
+    else if (daysDifference >= 7 && newDaysDifference > 1) {
+        return `In ${weeksDifference} Woche und ${newDaysDifference} Tagen`
+    } else if (daysDifference >= 7 && newDaysDifference == 1) {
+        return `In ${weeksDifference} Woche und ${newDaysDifference} Tag`
+    } else if (daysDifference >= 7 && newDaysDifference == 0) {
+        return `In ${weeksDifference} Woche`
+    }
+    
+    else if (daysDifference > 2 && daysDifference < 7) {
+        return `In ${daysDifference} Tagen`
+    } else if (daysDifference === 2) {
+        return "Übermorgen"
+    } else if (daysDifference === 1) {
+        return "Morgen"
+    } else if (daysDifference === 0) {
+        return "Heute"
+    } else if (daysDifference === -1) {
+        return "Gestern"
+    } else if (daysDifference === -2) {
+        return "Vorgestern"
+    } else if (daysDifference < -2 && daysDifference > -7) {
+        return `Vor ${-daysDifference} Tagen`
+    }
+    
+    else if (daysDifference <= -7 && newDaysDifference < -1) {
+        return `Vor ${-weeksDifference} Woche und ${-newDaysDifference} Tagen`
+    } else if (daysDifference <= -7 && newDaysDifference == -1) {
+        return `Vor ${-weeksDifference} Woche und ${-newDaysDifference} Tag`
+    } else if (daysDifference <= -7 && newDaysDifference == 0) {
+        return `Vor ${-weeksDifference} Woche`
+    }
+    
+    else if (daysDifference <= -14 && newDaysDifference < -1) {
+        return `Vor ${-weeksDifference} Wochen und ${-newDaysDifference} Tagen`
+    } else if (daysDifference <= -14 && newDaysDifference == -1) {
+        return `Vor ${-weeksDifference} Wochen und ${-newDaysDifference} Tag`
+    } else if (daysDifference <= -14 && newDaysDifference == 0) {
+        return `Vor ${-weeksDifference} Wochen`
     }
 }
 
