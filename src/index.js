@@ -25,15 +25,14 @@ const createWindow = () => {
     },
     darkTheme: true,
     center: true,
-    /* backgroundColor: '#1f212a', */
-    backgroundColor: 'rgba(0, 0, 0, 0)',
+    backgroundColor: '#141419',
     frame: true,
 
     roundedCorners: true,
 
     titleBarStyle: 'hidden',
     titleBarOverlay: {
-      color: '#202020',
+      color: '#141419',
       symbolColor: '#fff',
       height: 40
     }

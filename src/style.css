@@ -6,31 +6,29 @@
 
 :root {
     color-scheme: dark;
-    --borderRadiusBig: 8px;
-    --borderRadiusSmall: 4px;
+    --borderRadiusBig: 12px;
+    --borderRadiusSmall: 8px;
+    --popupBorderRadius: 8px;
 
 
     --fontColor: #ffffff;
 
-    --popupTitlebarColor: #202020;
-    --backgroundColor: #1f212a;
-    --secondaryBackgroundColor: #2b2e38;
+    --popupTitlebarColor: #141419;
+    /* --backgroundColor: #1f212a; */
+    --backgroundColor: #050505;
+    --secondaryBackgroundColor: #0f1112;
 
     /* Border */
-    --borderColor: #63666f;
+    --borderColor: #27292e;
+    --inputBorderColor: #ff7451;
+    --buttonBorderColor: #ff7451;
 
     /* Inputs and buttons */
-    --inputColor: #3c404b;
-    --buttonHoverColor: #4f535e;
-    --deleteButtonColor: #f44336;
+    --inputColor: #222124;
+    --buttonHoverColor: #1d1d23;
+    --deleteButtonColor: rgb(244, 67, 54);
     --addButtonHoverColor: #365cc0;
     --closeButtonHoverColor: #e81123;
-
-    --inputActiveLowerBorderColor: none;
-
-    --borderSize: 0px;
-
-    --buttonBorderHoverColor: #0078d4;
 }
 
 body {
@@ -83,6 +81,10 @@ body {
     justify-content: center;
     align-items: center;
     border-radius: var(--borderRadiusBig);
+
+    background-color: #24242b;
+    border: 1px solid transparent;
+    padding: 10px;
 }
 
 .sidebarButton img {
@@ -99,6 +101,7 @@ body {
     bottom: 10px;
     left: 10px;
     border-radius: var(--borderRadiusBig);
+    border: 1px solid var(--borderColor);
     overflow: hidden;
     box-shadow: 0px 0px 15px 20px rgba(0, 0, 0, 0.1);
 
@@ -117,6 +120,8 @@ body {
     gap: 10px;
     padding: 20px;
     height: 100%;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
     background-color: var(--secondaryBackgroundColor);
 }
@@ -126,6 +131,12 @@ body {
     flex-direction: row;
     gap: 10px;
     align-items: center;
+    padding-inline: 20px;
+    padding-block: 10px;
+}
+
+.settingsSidebar button:hover {
+    border: 1px solid hsl(223, 8%, 35%);
 }
 
 .settingsSidebar button img {
@@ -145,9 +156,10 @@ body {
     width: 100%;
 
     background-color: var(--backgroundColor);
+
     border-top-left-radius: var(--borderRadiusBig);
-    border-top: 2px solid var(--secondaryBackgroundColor);
-    border-left: 2px solid var(--secondaryBackgroundColor);
+    border-top: 2px solid var(--borderColor);
+    border-left: 2px solid var(--borderColor);
 }
 
 .individualWrapper {
@@ -179,21 +191,16 @@ label {
 }
 
 input {
-    border: var(--borderSize) solid var(--borderColor);
     background-color: var(--inputColor);
     padding: 8px;
     border-radius: var(--borderRadiusSmall);
     outline: none;
     color: var(--fontColor);
-}
-
-input:hover,
-input:focus {
-    border: var(--borderSize) solid var(--borderColor);
+    border: 1px solid #27292e;
 }
 
 input:focus {
-    border-bottom: 1px solid var(--inputActiveLowerBorderColor);
+    border: 1px solid var(--inputBorderColor);
 }
 
 ::-webkit-input-placeholder {
@@ -241,23 +248,31 @@ button {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    border: var(--borderSize) solid var(--borderColor);
 
     color: var(--fontColor);
+
+    border: 1px solid #27292e;
+
+    outline: none;
+
 }
 
 .textOnlyButton {
     padding-inline: 32px;
 }
 
-button:hover {
-    background-color: var(--buttonHoverColor);
-    border: var(--borderSize) solid var(--buttonBorderHoverColor);
+button:focus {
+    border: 1px solid var(--buttonBorderColor);
 }
 
-button.addButton:hover {
-    background-color: var(--addButtonHoverColor);
+button:hover {
+    background-color: var(--buttonHoverColor);
+    border: 1px solid var(--buttonBorderColor);
 }
+
+/* button.addButton:hover {
+    background-color: var(--addButtonHoverColor);
+} */
 
 #eventList {
     display: flex;
@@ -270,24 +285,29 @@ button.addButton:hover {
 }
 
 .listItem {
-    padding: 10px;
+    padding: 15px;
     background-color: var(--secondaryBackgroundColor);
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     margin-bottom: 5px;
     border-radius: var(--borderRadiusSmall);
+    border-radius: 8px;
     display: flex;
     justify-content: space-between;
 
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.2); */
 }
 
 .listItem:hover {
-    border: 2px solid var(--inputColor);
+    border: 1px solid #27292e;
 }
 
 button.delete-button {
     background-color: var(--deleteButtonColor);
-    border: var(--borderSize) solid transparent;
+}
+
+button.delete-button:hover,
+button.delete-button:focus {
+    border: 1px solid var(--deleteButtonColor);
 }
 
 .add {
@@ -304,9 +324,13 @@ button.delete-button {
     width: fit-content;
     margin: auto;
 
-    padding: 20px;
-    border: 2px solid var(--borderColor);
+    padding: 25px;
+
+    border: 1px solid var(--borderColor);
     border-radius: var(--borderRadiusBig);
+
+    background-color: var(--secondaryBackgroundColor);
+    /* box-shadow: 0px 0px 50px 0px rgba(0,0,0,0.2); */
 }
 
 .popup {
@@ -317,12 +341,12 @@ button.delete-button {
     left: 50%;
     transform: translate(-50%, -50%);
 
-    background-color: var(--backgroundColor);
-    border-radius: var(--borderRadiusBig);
+    background-color: #141419;
+    border-radius: var(--popupBorderRadius);
     overflow: hidden;
     border: 1px solid var(--borderColor);
 
-    min-width: 100px;
+    min-width: 300px;
     width: -webkit-fit-content;
     width: -moz-fit-content;
     width: fit-content;
@@ -341,44 +365,58 @@ button.delete-button {
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    padding: 12px;
-    gap: 12px;
 }
 
 .popupTitlebar {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
 
-    background-color: var(--popupTitlebarColor);
-    height: 29px;
+    height: 36px;
 
     border-bottom: 1px solid var(--secondaryBackgroundColor);
+
+    padding: 12px;
+    border-bottom: 1px solid var(--borderColor);
+    align-items: center;
+}
+
+.popupTitlebarTitle {
+    font-weight: bold;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .closeButton {
-    width: 45px;
     height: 100%;
-    background-color: transparent;
-    border-radius: 0;
-    border: none;
+    aspect-ratio: 1;
+    border-radius: var(--borderRadiusSmall);
+    border: 1px solid transparent;
     background: url(icons/close.svg) no-repeat;
     background-position: center;
     background-size: 18px;
+
+    background-color: var(--inputColor);
+}
+
+.closeButton:focus {
+    border: none;
 }
 
 .closeButton:hover {
-    background-color: var(--closeButtonHoverColor);
+    /* background-color: var(--buttonHoverColor); */
+    background-color: rgb(49, 49, 49);
+    border: 1px solid var(--borderColor);
 }
 
 .popupContent {
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    padding: 12px;
     border-radius: var(--borderRadiusSmall);
-    background-color: var(--secondaryBackgroundColor);
-    gap: 10px;
-    border: var(--borderSize) solid var(--borderColor);
+    /* gap: 10px; */
 }
 
 .popupInputs {
@@ -387,6 +425,18 @@ button.delete-button {
     align-items: center;
     justify-content: space-between;
     gap: 20px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--borderColor);
+}
+
+.popupInputs:first-of-type {
+    padding-top: 0px;
+}
+
+.popupInputs:last-of-type {
+    padding-bottom: 0px;
+    border-bottom: none;
 }
 
 .popupActions {
@@ -394,6 +444,8 @@ button.delete-button {
     flex-direction: row;
     justify-content: flex-end;
     gap: 10px;
+    border-top: 1px solid var(--borderColor);
+    padding: 12px;
 }
 
 .listDataWithDrag {
@@ -426,7 +478,7 @@ button.delete-button {
 }
 
 .dotSeparator {
-    color: var(--borderColor);
+    color: #63666f;
 
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -497,6 +549,7 @@ button.delete-button {
 
 [data-settings-tab-target].activeSetting {
     background-color: var(--buttonHoverColor);
+    border: 1px solid var(--buttonBorderColor);
 }
 
 [data-settings-tab-content] {
@@ -524,8 +577,7 @@ button.delete-button {
 
 
 [data-app-page-target].activePage {
-    background-color: var(--buttonHoverColor);
-    border: var(--borderSize) solid var(--buttonBorderHoverColor);
+    background-color: #ff7451;
 }
 
 [data-app-page-content] {

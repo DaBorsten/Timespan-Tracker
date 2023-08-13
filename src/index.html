@@ -75,6 +75,7 @@
 
     <div id="popup" class="popup">
         <div id="popupTitlebar" class="popupTitlebar">
+            <div class="popupTitlebarTitle">Bearbeiten</div>
             <button id="close-button" class="closeButton"></button>
         </div>
         <div class="popupWithoutTitlebar">
@@ -100,6 +101,7 @@
 
     <div id="alertPopup" class="popup">
         <div id="alertPopupTitlebar" class="popupTitlebar">
+            <div class="popupTitlebarTitle">Fehler</div>
             <button id="closeAlertPopupButton" class="closeButton"></button>
         </div>
         <div class="popupWithoutTitlebar">
@@ -116,6 +118,7 @@
 
     <div id="confirmPopup" class="popup">
         <div id="confirmPopupTitlebar" class="popupTitlebar">
+            <div class="popupTitlebarTitle">Löschen</div>
             <button id="closeConfirmPopupButton" class="closeButton"></button>
         </div>
         <div class="popupWithoutTitlebar">
@@ -175,7 +178,7 @@
 
 
     <template id="templateListItem">
-        <div class="listItem">
+        <div class="listItem" tabindex="0">
             <div class="listDataWithDrag">
                 <div class="dragElement">
                     <img src="icons/drag.svg">
