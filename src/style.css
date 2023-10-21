@@ -1,3 +1,8 @@
+
+/*********************************
+General
+*********************************/
+
 * {
     margin: 0;
     padding: 0;
@@ -6,17 +11,21 @@
 
 :root {
     color-scheme: dark;
+
+    /* Border Radius */
     --borderRadiusBig: 12px;
     --borderRadiusSmall: 8px;
-    --popupBorderRadius: 8px;
 
-
-    --fontColor: #ffffff;
-
-    --popupTitlebarColor: #141419;
-    /* --backgroundColor: #1f212a; */
+    /* Background Colors */
     --backgroundColor: #050505;
     --secondaryBackgroundColor: #0f1112;
+
+    /* Font */
+    --fontColor: #ffffff;
+
+    /* Inactive and active */
+    --inactiveColor: hsl(0, 0%, 65%);
+    --activeColor: #ffffff;
 
     /* Border */
     --borderColor: #27292e;
@@ -25,154 +34,20 @@
 
     /* Inputs and buttons */
     --inputColor: #222124;
-    --buttonHoverColor: #1d1d23;
-    --deleteButtonColor: rgb(244, 67, 54);
-    --addButtonHoverColor: #365cc0;
-    --closeButtonHoverColor: #e81123;
+    --buttonColor: #222124;
+    --buttonHoverColor: #313131;
+    --deleteButtonColor: #f44336;
+
+    /* Popup */
+    --popupBorderRadius: 8px;
+    --popupTitlebarColor: #141419;
+    --popupBorderColor: #46484b;
 }
 
 body {
 
     background-color: var(--popupTitlebarColor);
     color: var(--fontColor);
-}
-
-.windowTitlebar {
-    -webkit-app-region: drag;
-    height: 40px;
-}
-
-.wholeWindow {
-    display: flex;
-    flex-direction: column;
-    height: 100dvh;
-}
-
-.siteWithSidebar {
-    display: flex;
-    flex-direction: row;
-    height: calc(100dvh - 42px);
-}
-
-.sidebar {
-    display: flex;
-    flex-direction: column;
-    background-color: transparent;
-    justify-content: space-between;
-    margin: 10px;
-    align-items: center;
-}
-
-.sidebarCategories {
-    display: flex;
-    flex-direction: column;
-
-    gap: 10px;
-}
-
-.sidebarButton {
-    display: flex;
-    background-color: transparent;
-    width: -webkit-min-content;
-    width: -moz-min-content;
-    width: min-content;
-    aspect-ratio: 1;
-
-    justify-content: center;
-    align-items: center;
-    border-radius: var(--borderRadiusBig);
-
-    background-color: #24242b;
-    border: 1px solid transparent;
-    padding: 10px;
-}
-
-.sidebarButton img {
-    width: 20px;
-}
-
-.settings {
-    display: flex;
-    visibility: hidden;
-    flex-direction: row;
-    width: 500px;
-    height: 60dvh;
-    position: fixed;
-    bottom: 10px;
-    left: 10px;
-    border-radius: var(--borderRadiusBig);
-    border: 1px solid var(--borderColor);
-    overflow: hidden;
-    box-shadow: 0px 0px 15px 20px rgba(0, 0, 0, 0.1);
-
-    transform: translateY(50%);
-    transition: transform 100ms ease-out;
-}
-
-.settings[data-settings-open="true"] {
-    visibility: visible;
-    transform: translateY(0%);
-}
-
-.settingsSidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 20px;
-    height: 100%;
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
-    background-color: var(--secondaryBackgroundColor);
-}
-
-.settingsSidebar button {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    align-items: center;
-    padding-inline: 20px;
-    padding-block: 10px;
-}
-
-.settingsSidebar button:hover {
-    border: 1px solid hsl(223, 8%, 35%);
-}
-
-.settingsSidebar button img {
-    width: 20px;
-}
-
-.settingsContent {
-    padding: 20px;
-
-    height: 100%;
-    width: 100%;
-    background-color: var(--inputColor);
-}
-
-.pagesWrapper {
-    height: 100%;
-    width: 100%;
-
-    background-color: var(--backgroundColor);
-
-    border-top-left-radius: var(--borderRadiusBig);
-    border-top: 2px solid var(--borderColor);
-    border-left: 2px solid var(--borderColor);
-}
-
-.individualWrapper {
-    flex-direction: column;
-    gap: 30px;
-    max-height: 100%;
-}
-
-.header {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    padding-top: 30px;
 }
 
 h1 {
@@ -238,10 +113,33 @@ input:focus {
     /* Firefox */
 }
 
+::-webkit-scrollbar {
+    width: 14px;
+    height: 18px;
+}
+
+::-webkit-scrollbar-thumb {
+    height: 6px;
+    border: 4px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+    background-color: var(--secondaryBackgroundColor);
+    -webkit-border-radius: 7px;
+}
+
+::-webkit-scrollbar-button {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
 button {
     padding: 8px;
     border-radius: var(--borderRadiusSmall);
-    background-color: var(--inputColor);
+    background-color: var(--buttonColor);
     cursor: pointer;
     transition: background-color 0.3s;
     -webkit-user-select: none;
@@ -257,10 +155,6 @@ button {
 
 }
 
-.textOnlyButton {
-    padding-inline: 32px;
-}
-
 button:focus {
     border: 1px solid var(--buttonBorderColor);
 }
@@ -270,9 +164,78 @@ button:hover {
     border: 1px solid var(--buttonBorderColor);
 }
 
-/* button.addButton:hover {
-    background-color: var(--addButtonHoverColor);
-} */
+/**********************************************************************************/
+
+/*********************************
+Page
+*********************************/
+
+.wholeWindow {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+}
+
+.windowTitlebar {
+    -webkit-app-region: drag;
+    height: 40px;
+}
+
+.siteWithSidebar {
+    display: flex;
+    flex-direction: row;
+    height: calc(100dvh - 42px);
+}
+
+.pagesWrapper {
+    height: 100%;
+    width: 100%;
+
+    background-color: var(--backgroundColor);
+
+    border-top-left-radius: var(--borderRadiusBig);
+    border-top: 2px solid var(--borderColor);
+    border-left: 2px solid var(--borderColor);
+}
+
+.individualWrapper {
+    flex-direction: column;
+    gap: 30px;
+    max-height: 100%;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-top: 30px;
+}
+
+.add {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+
+    width: -webkit-fit-content;
+
+    width: -moz-fit-content;
+
+    width: fit-content;
+    margin: auto;
+
+    padding: 25px;
+
+    border: 1px solid var(--borderColor);
+    border-radius: var(--borderRadiusBig);
+
+    background-color: var(--secondaryBackgroundColor);
+}
+
+.textOnlyButton {
+    padding-inline: 32px;
+}
 
 #eventList {
     display: flex;
@@ -308,144 +271,6 @@ button.delete-button {
 button.delete-button:hover,
 button.delete-button:focus {
     border: 1px solid var(--deleteButtonColor);
-}
-
-.add {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-
-    width: -webkit-fit-content;
-
-    width: -moz-fit-content;
-
-    width: fit-content;
-    margin: auto;
-
-    padding: 25px;
-
-    border: 1px solid var(--borderColor);
-    border-radius: var(--borderRadiusBig);
-
-    background-color: var(--secondaryBackgroundColor);
-    /* box-shadow: 0px 0px 50px 0px rgba(0,0,0,0.2); */
-}
-
-.popup {
-    position: fixed;
-    display: none;
-    flex-direction: column;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    background-color: #141419;
-    border-radius: var(--popupBorderRadius);
-    overflow: hidden;
-    border: 1px solid var(--borderColor);
-
-    min-width: 300px;
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
-
-    height: -webkit-min-content;
-
-    height: -moz-min-content;
-
-    height: min-content;
-
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
-}
-
-.popupWithoutTitlebar {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-}
-
-.popupTitlebar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    height: 36px;
-
-    border-bottom: 1px solid var(--secondaryBackgroundColor);
-
-    padding: 12px;
-    border-bottom: 1px solid var(--borderColor);
-    align-items: center;
-}
-
-.popupTitlebarTitle {
-    font-weight: bold;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-.closeButton {
-    height: 100%;
-    aspect-ratio: 1;
-    border-radius: var(--borderRadiusSmall);
-    border: 1px solid transparent;
-    background: url(icons/close.svg) no-repeat;
-    background-position: center;
-    background-size: 18px;
-
-    background-color: var(--inputColor);
-}
-
-.closeButton:focus {
-    border: none;
-}
-
-.closeButton:hover {
-    /* background-color: var(--buttonHoverColor); */
-    background-color: rgb(49, 49, 49);
-    border: 1px solid var(--borderColor);
-}
-
-.popupContent {
-    display: flex;
-    flex-direction: column;
-    padding: 12px;
-    border-radius: var(--borderRadiusSmall);
-    /* gap: 10px; */
-}
-
-.popupInputs {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--borderColor);
-}
-
-.popupInputs:first-of-type {
-    padding-top: 0px;
-}
-
-.popupInputs:last-of-type {
-    padding-bottom: 0px;
-    border-bottom: none;
-}
-
-.popupActions {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    gap: 10px;
-    border-top: 1px solid var(--borderColor);
-    padding: 12px;
 }
 
 .listDataWithDrag {
@@ -497,86 +322,58 @@ button.delete-button:focus {
     font-weight: bold;
 }
 
+/**********************************************************************************/
 
+/*********************************
+Sidebar
+*********************************/
 
-
-
-
-
-
-
-
-
-
-
-
-::-webkit-scrollbar {
-    width: 14px;
-    height: 18px;
-}
-
-::-webkit-scrollbar-thumb {
-    height: 6px;
-    border: 4px solid rgba(0, 0, 0, 0);
-    background-clip: padding-box;
-    background-color: var(--secondaryBackgroundColor);
-    -webkit-border-radius: 7px;
-}
-
-::-webkit-scrollbar-button {
-    display: none;
-    width: 0;
-    height: 0;
-}
-
-::-webkit-scrollbar-corner {
-    background-color: transparent;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-[data-settings-tab-target].activeSetting {
-    background-color: var(--buttonHoverColor);
-    border: 1px solid var(--buttonBorderColor);
-}
-
-[data-settings-tab-content] {
-    display: none;
-}
-
-[data-settings-tab-content].activeSetting {
+.sidebar {
     display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    justify-content: space-between;
+    margin: 10px;
+    align-items: center;
 }
 
+.sidebarCategories {
+    display: flex;
+    flex-direction: column;
 
+    gap: 10px;
+}
 
+.sidebarButton {
+    display: flex;
+    background-color: transparent;
+    width: -webkit-min-content;
+    width: -moz-min-content;
+    width: min-content;
+    aspect-ratio: 1;
 
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--borderRadiusBig);
 
+    background-color: #24242b;
+    border: 1px solid transparent;
+    padding: 10px;
 
+    fill: var(--inactiveColor);
+}
 
+.sidebarButton:hover,
+.sidebarButton:focus {
+    fill: var(--activeColor);
+}
 
-
-
-
-
-
-
-
-
+.sidebarButton svg {
+    width: 20px;
+}
 
 [data-app-page-target].activePage {
+    fill: var(--activeColor);
     background-color: #ff7451;
 }
 
@@ -588,6 +385,90 @@ button.delete-button:focus {
     display: flex;
 }
 
+/**********************************************************************************/
+
+/*********************************
+Settings
+*********************************/
+
+.settings {
+    display: flex;
+    visibility: hidden;
+    flex-direction: row;
+    width: 500px;
+    height: 600px;
+    max-height: 80dvh;
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    border-radius: var(--borderRadiusBig);
+    border: 1px solid var(--borderColor);
+    overflow: hidden;
+    box-shadow: 0px 0px 15px 20px rgba(0, 0, 0, 0.1);
+
+    transform: translateY(50%);
+    transition: transform 100ms ease-out;
+}
+
+.settings[data-settings-open="true"] {
+    visibility: visible;
+    transform: translateY(0%);
+}
+
+.settingsSidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    height: 100%;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    background-color: var(--secondaryBackgroundColor);
+}
+
+.settingsSidebar button {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    padding-inline: 20px;
+    padding-block: 10px;
+}
+
+.settingsSidebar button:hover {
+    border: 1px solid hsl(223, 8%, 35%);
+}
+
+.settingsSidebar button img {
+    width: 20px;
+}
+
+.settingsContent {
+    padding: 20px;
+
+    height: 100%;
+    width: 100%;
+    background-color: var(--inputColor);
+}
+
+[data-settings-tab-target].activeSetting {
+    background-color: var(--buttonHoverColor);
+    border: 1px solid var(--buttonBorderColor);
+}
+
+[data-settings-tab-target].activeSetting:hover {
+    background-color: var(--buttonHoverColor);
+    border: 1px solid var(--buttonBorderColor);
+}
+
+[data-settings-tab-content] {
+    display: none;
+}
+
+[data-settings-tab-content].activeSetting {
+    display: flex;
+}
 
 .settingsContentTitle {
     font-weight: bold;
@@ -606,4 +487,136 @@ button.delete-button:focus {
     justify-content: space-between;
 
     width: 100%;
+}
+
+/**********************************************************************************/
+
+/*********************************
+Popup
+*********************************/
+
+.popup {
+    position: fixed;
+    display: none;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: #141419;
+    border-radius: var(--popupBorderRadius);
+    overflow: hidden;
+    border: 1px solid var(--popupBorderColor);
+
+    min-width: 400px;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+
+    height: -webkit-min-content;
+
+    height: -moz-min-content;
+
+    height: min-content;
+
+    /* box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1); */
+
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 1);
+}
+
+.popupTitlebar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    height: 36px;
+
+    border-bottom: 1px solid var(--secondaryBackgroundColor);
+
+    padding: 12px;
+    border-bottom: 1px solid var(--borderColor);
+    align-items: center;
+}
+
+.popupTitlebarTitle {
+    font-weight: bold;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.closeButton {
+    height: 100%;
+    aspect-ratio: 1;
+    border-radius: var(--borderRadiusSmall);
+    border: 1px solid transparent;
+
+    background-color: var(--buttonColor);
+    fill: var(--inactiveColor);
+}
+
+.closeButton:focus {
+    border: none;
+    fill: var(--activeColor);
+}
+
+.closeButton:hover {
+    background-color: var(--buttonHoverColor);
+    border: 1px solid var(--borderColor);
+    fill: var(--activeColor);
+}
+
+.popupWithoutTitlebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.popupContent {
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    border-radius: var(--borderRadiusSmall);
+    /* gap: 10px; */
+    min-height: 36px;
+    justify-content: center;
+}
+
+.popupInputs {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: space-between;
+    /* gap: 20px; */
+    gap: 12px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--borderColor);
+
+    color: var(--inactiveColor);
+}
+
+.popupInputs input {
+    max-width: 100%;
+    padding: 12px;
+}
+
+.popupInputs:first-of-type {
+    padding-top: 0px;
+}
+
+.popupInputs:last-of-type {
+    padding-bottom: 0px;
+    border-bottom: none;
+}
+
+.popupActions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 10px;
+    border-top: 1px solid var(--borderColor);
+    padding: 12px;
 }
